@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/userModels";
 
-const protect = async (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   let token;
   if (req.headers.authorization) {
     try {
@@ -21,4 +21,4 @@ const protect = async (req, res, next) => {
   }
 };
 
-export { protect };
+export { authMiddleware };

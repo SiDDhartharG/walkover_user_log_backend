@@ -14,7 +14,8 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         require: true
-    }
+    },
+    tableName: [{ type: String, unique: true }]
 }, {
     timestamps: true,
     versionKey: false

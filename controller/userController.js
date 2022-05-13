@@ -15,11 +15,11 @@ const registerUser = async (req, res) => {
       throw new Error("User already exist");
     }
 
-    const user = await User.create({ name, email, password });
+    const user = await User.create({ name, email, password, tableName: [] });
     if (user) {
       res
         .status(201)
-        .json({ token: generateToken(user._id, user.name, user.email) });
+        .json({ token: generateToken(user._id, user.name, user.email, user.tableName) });
     } else {
       throw new Error("Invalid User data");
     }
@@ -37,7 +37,7 @@ const loginUser = async (req, res) => {
     if (user && (await user.matchPassword(password))) {
       res
         .status(201)
-        .json({ token: generateToken(user._id, user.name, user.email) });
+        .json({ token: generateToken(user._id, user.name, user.email, user.tableName) });
     } else {
       throw new Error("incorrect email password");
     }
