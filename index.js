@@ -1,11 +1,23 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import userRoutes from "./router/userRouter.js";
+import cors from "cors";
+dotenv.config();
+connectDB();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+const app = express();
+app.use(cors({}));
+app.use(express.json());
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+app.get("/", (_, res) => {
+  res.send("Hello World!");
+});
+
+app.use("/api/user", userRoutes);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
+});
