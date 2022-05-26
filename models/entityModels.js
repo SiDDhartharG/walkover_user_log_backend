@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import User from './userModels'
+import User from './userModels.js'
 
 const entitySchema = mongoose.Schema({
     userId: {

@@ -2,9 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./router/userRouter.js";
-import userRoutes from "./router/tableRouter.js";
+// import userRoutes from "./router/tableRouter.js";
 import cors from "cors";
-import entityRouter from './router/entityRouter'
+import entityRouter from './router/entityRouter.js'
 dotenv.config();
 connectDB();
 
@@ -17,7 +17,7 @@ app.get("/", (_, res) => {
 });
 
 app.use("/api/user", userRoutes);
-app.use("/api/table", tableRouter);
+// app.use("/api/table", tableRouter);
 app.use("/api/entity", entityRouter);
 
 const PORT = process.env.PORT || 5000;

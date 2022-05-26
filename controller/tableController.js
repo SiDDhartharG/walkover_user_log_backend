@@ -1,5 +1,5 @@
-import User from "../models/userModels"
-import generateToken from "../utils/token"
+import User from "../models/userModels.js"
+import generateToken from "../utils/token.js"
 
 //@route POST /api/table/:tableName
 //@desc middleware

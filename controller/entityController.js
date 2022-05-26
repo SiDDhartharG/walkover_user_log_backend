@@ -1,4 +1,4 @@
-import Entity from '../models/entityModels'
+import Entity from '../models/entityModels.js'
 
 //@route GET /api/entity
 //@desc middleware
