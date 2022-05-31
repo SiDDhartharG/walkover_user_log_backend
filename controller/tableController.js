@@ -4,14 +4,16 @@ import generateToken from "../utils/token.js"
 //@route POST /api/table/:tableName
 //@desc middleware
 const addTable = async (req, res) => {
-    const tableNameToAdd = req.query.tableName
+    const tableNameToAdd = req.params.tableName
     if (!tableNameToAdd || tableNameToAdd === '') {
         return res.status(400).json({ message: "Wrong/Empty Table Name" })
     }
     var { _id, email, name, tableName = [] } = req.user
+    console.log(tableName);
     try {
         await User.findOneAndUpdate({ _id }, { $addToSet: { tableName: tableNameToAdd } })
-        res.status(201).json({ token: generateToken(_id, email, name, tableName.push(tableNameToAdd)) })
+        tableName.push(tableNameToAdd)
+        res.status(201).json({ token: generateToken(_id, email, name, tableName) })
     } catch (error) {
         res.status(501).json({ error: error.toString() })
     }
