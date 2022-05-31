@@ -9,11 +9,10 @@ const addTable = async (req, res) => {
         return res.status(400).json({ message: "Wrong/Empty Table Name" })
     }
     var { _id, email, name, tableName = [] } = req.user
-    console.log(tableName);
     try {
         await User.findOneAndUpdate({ _id }, { $addToSet: { tableName: tableNameToAdd } })
         tableName.push(tableNameToAdd)
-        res.status(201).json({ token: generateToken(_id, email, name, tableName) })
+        res.status(201).json({ token: generateToken(_id, name, email, tableName) })
     } catch (error) {
         res.status(501).json({ error: error.toString() })
     }

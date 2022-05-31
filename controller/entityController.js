@@ -3,9 +3,9 @@ import Entity from '../models/entityModels.js'
 //@route GET /api/entity
 //@desc middleware
 const getEntities = async (req, res) => {
-    const { tableName } = req.query
+    const { tableName } = req.params
     try {
-        const entitiesToReturn = await Entity.find({ tableName })
+        const entitiesToReturn = await Entity.find({ tableName, userId: req.user._id })
         res.status(201).json({ data: entitiesToReturn })
     } catch (error) {
         res.status(401).json({ error: "Error in adding entity" })
@@ -32,7 +32,7 @@ const addEntity = async (req, res) => {
 //@route DELETE /api/entity/:entityId
 //@desc middleware
 const deleteEntity = async (req, res) => {
-    const entityId = req.query.entityId
+    const entityId = req.params.entityId
     try {
         await Entity.deleteOne({ _id: entityId })
         res.status(201).json({ message: "SUCCESS" })
