@@ -1,28 +1,42 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-// router
+import path from 'path'
 import userRoutes from "./router/userRouter.js";
 import tableRouter from "./router/tableRouter.js";
 import entityRouter from './router/entityRouter.js'
 import cors from "cors";
+import morgan from 'morgan'
 dotenv.config();
 connectDB();
 
 const app = express();
 app.use(cors({}));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
+
 app.use(express.json());
 
-app.get("/", (_, res) => {
-  res.send("Hello World!");
-});
+app.get("/", (_, res) => { res.send("Hello World!") });
 
 app.use("/api/user", userRoutes);
 app.use("/api/table", tableRouter);
 app.use("/api/entity", entityRouter);
 
 const PORT = process.env.PORT || 5000;
+const __dirname = path.resolve()
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/user_log_frontend/build')))
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'user_log_frontend', 'build', 'index.html'))
+  )
+} else {
+  app.get('/', (req, res) => {
+    res.send("API IS RUNNING");
+  })
+}
+
+app.listen(PORT, () => { console.log(`Example app listening on port ${PORT}`); });
