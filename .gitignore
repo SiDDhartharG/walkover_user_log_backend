@@ -9,6 +9,7 @@
 
 # testing
 /coverage
+/user_log_frontend
 
 # production
 /build
