@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/user_log_frontend/node_modules
+
 /.pnp
 .pnp.js
 
@@ -9,7 +11,7 @@
 
 # testing
 /coverage
-/user_log_frontend
+# /user_log_frontend
 
 # production
 /build
